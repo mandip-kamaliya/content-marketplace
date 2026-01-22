@@ -1,13 +1,14 @@
 [project]
 name = "content-marketplace"
-description = ""
+description = "USDCx Content Marketplace for monetizing APIs and datasets"
 authors = []
 telemetry = true
 cache_dir = "./.cache"
 
-# [contracts.counter]
-# path = "contracts/counter.clar"
-# epoch = "latest"
+[contracts.content-marketplace-v2]
+path = "contracts/content-marketplace.clar"
+clarity_version = 2
+epoch = 2.5
 
 [repl.analysis]
 passes = ["check_checker"]
