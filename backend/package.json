@@ -3,7 +3,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon --exec ts-node src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "bridge:deposit": "ts-node src/scripts/bridge/index.ts deposit",
+    "bridge:withdraw": "ts-node src/scripts/bridge/index.ts withdraw",
+    "bridge:listen": "ts-node src/scripts/bridge/listener.ts",
+    "deploy": "ts-node src/scripts/deploy.ts"
   },
   "keywords": [],
   "author": "",
@@ -12,13 +19,18 @@
   "dependencies": {
     "@stacks/network": "^7.3.1",
     "@stacks/transactions": "^7.3.1",
+    "@stacks/wallet-sdk": "^7.2.0",
+    "c32check": "^2.0.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "node-fetch": "^2.7.0",
+    "viem": "^2.44.4"
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
     "@types/node": "^25.0.9",
+    "@types/node-fetch": "^2.6.13",
     "nodemon": "^3.1.11",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
