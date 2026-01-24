@@ -2,10 +2,6 @@
 ;; A decentralized marketplace for monetizing digital content (APIs, datasets, AI models)
 ;; with programmable access control using USDCx payments
 
-;; USDCx Token Contract (Testnet)
-;; This is the official USDCx token on Stacks testnet
-(define-constant usdcx-token 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.usdcx-v1)
-
 ;; Error constants
 (define-constant err-not-found (err u101))
 (define-constant err-unauthorized (err u102))
@@ -105,7 +101,7 @@
     
     ;; Transfer USDCx from buyer to creator
     ;; Uses SIP-010 token standard transfer function
-    (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.usdcx-v1 transfer 
+    (try! (contract-call? 'ST13T9VVWP9XHRHFMTSYPNDWN986AEK4WQ2DYQ0Q2.usdcx-mock transfer 
         payment-amount 
         tx-sender 
         creator 
