@@ -5,7 +5,7 @@ authors = []
 telemetry = true
 cache_dir = "./.cache"
 
-[contracts.content-marketplace-v2]
+[contracts.content-marketplace-v3]
 path = "contracts/content-marketplace.clar"
 clarity_version = 2
 epoch = 2.5
