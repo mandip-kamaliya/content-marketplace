@@ -35,7 +35,7 @@ async function main() {
     const codeBody = fs.readFileSync(contractPath, 'utf8');
 
     // 3. Define New Contract Name (Incrementing version)
-    const contractName = "content-marketplace-v5";
+    const contractName = "content-marketplace-v7";
 
     console.log(`📜 Contract Name: ${contractName}`);
     console.log(`📄 Reading from: ${contractPath}`);
