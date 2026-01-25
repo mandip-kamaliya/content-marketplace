@@ -1,6 +1,5 @@
 
 <div align="center">
-<div align="center">
   <h1>USDCx Content Marketplace</h1>
   
   <h3><strong>The Financial Layer for the AI & Data Economy</strong></h3>
@@ -16,6 +15,8 @@
     <a href="#-architecture">Architecture</a>
   </p>
 
+  <br />
+
   ![Stacks](https://img.shields.io/badge/Stacks-5546FF?style=for-the-badge&logo=stacks&logoColor=white)
   ![Clarity](https://img.shields.io/badge/Clarity-Smart%20Contract-orange?style=for-the-badge)
   ![USDCx](https://img.shields.io/badge/USDCx-USDC%20on%20Stacks-2775CA?style=for-the-badge)
@@ -23,12 +24,17 @@
 </div>
 
 <br />
+<br />
 
 ## 🔮 Project Vision
 
 **"To build the native financial layer of the web by reviving the lost HTTP 402 standard. We empower developers to instantly monetize APIs, AI models, and datasets globally using programmable USDCx on Bitcoin layers—creating a frictionless economy for the digital age."**
 
+<br />
+
 ---
+
+<br />
 
 ## 🎯 The Problem vs. Solution
 
@@ -39,6 +45,8 @@
 | ❌ **Geographic Walls**: "Sorry, this payment method is not available in your country." | ✅ **Global Access**: Anyone with an internet connection and USDCx can participate. |
 | ❌ **Chargeback Fraud**: Merchants lose billions to friendly fraud. | ✅ **Finality**: Blockchain transactions are irreversible and secure. |
 
+<br />
+
 ## ✨ Key Features
 
 - **🌉 Cross-Chain Bridge**: Seamlessly move USDC from Ethereum Sepolia to Stacks Testnet.
@@ -46,6 +54,8 @@
 - **🔐 Token-Gated Access**: access is cryptographically verified on-chain.
 - **🤖 AI Ready**: Perfect for monetizing LLM inferences or RAG datasets.
 - **💎 USDCx Stablecoin**: No volatility risk for creators—earn in digital dollars.
+
+<br />
 
 ## 🏗️ Architecture
 
@@ -71,6 +81,8 @@ graph TD
 1.  **Smart Contract**: Handles the logic for pricing, purchases, and access expiration.
 2.  **Backend (The Gatekeeper)**: A deeply integrated middleware that intercepts requests. If the user hasn't paid, it responds with `402 Payment Required` and the necessary metadata to complete the transaction.
 3.  **Frontend (The Wallet)**: A sleek interface to discover content, bridge funds, and manage access keys.
+
+<br />
 
 ## 🚀 Quick Start
 
@@ -103,6 +115,8 @@ npm run dev
 - Frontend: `http://localhost:5173`
 - Backend: `http://localhost:3000`
 
+<br />
+
 ## 📝 How to Use
 
 ### 1. Bridge Assets
@@ -114,12 +128,16 @@ Browse the marketplace. Click **"Purchase"** on any premium API or dataset. Sign
 ### 3. Access Content
 Once the transaction confirms (approx. 10-30s), the "Access" button will unlock. Your ownership is verified on-chain, and the backend will serve the protected data.
 
+<br />
+
 ## 🧪 Testing
 
 Run the full suite of smart contract tests:
 ```bash
 npm test
 ```
+
+<br />
 
 ## 🏆 Hackathon Submission Details
 
@@ -130,10 +148,14 @@ npm test
 - **User Experience**: We focused heavily on "Pixel Perfect" UI to make Web3 feel like Web2.
 - **Completeness**: Includes a working Bridge, Marketplace, and Creator Dashboard.
 
+<br />
+
 ## 👨‍💻 Team
 
 **Mandip Kamaliya**
 - Role: Full Stack Developer & Blockchain Engineer
+
+<br />
 
 ---
 <p align="center">
