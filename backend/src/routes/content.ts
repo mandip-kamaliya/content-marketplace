@@ -5,6 +5,12 @@ import { getContentById, getAllContentIds } from '../data/sample-content';
 
 const router = Router();
 
+// In-memory mock store for demo
+let mockContentStore: any[] = [];
+
+// Initialize with sample data if needed, or leave empty to rely on static samples + dynamic additions
+// We will merge static sample-content with this dynamic store.
+
 /**
  * GET /api/content
  * List all available content (public)
@@ -14,9 +20,10 @@ router.get('/', async (_req: Request, res: Response) => {
         const contentIds = getAllContentIds();
         const contentList = [];
 
+        // 1. Static Sample Content
         for (const id of contentIds) {
             const content = getContentById(id);
-            const listing = await getContentListing(id);
+            const listing = await getContentListing(id); // Returns mock if chain fails
 
             if (content && listing) {
                 contentList.push({
@@ -32,6 +39,9 @@ router.get('/', async (_req: Request, res: Response) => {
             }
         }
 
+        // 2. Dynamic Mock Content (from Demo)
+        contentList.push(...mockContentStore);
+
         res.json({
             success: true,
             count: contentList.length,
@@ -46,6 +56,32 @@ router.get('/', async (_req: Request, res: Response) => {
 });
 
 /**
+ * POST /api/content/mock
+ * Internal endpoint for Demo: Register a new mock content item
+ */
+router.post('/mock', (req: Request, res: Response) => {
+    const { title, description, price, duration, metadataUri } = req.body;
+
+    // Create new mock item
+    const newItem = {
+        id: 1000 + mockContentStore.length, // Start ID from 1000 to avoid collision
+        title: title || "New Demo Content",
+        description: description || "Created during live demo",
+        type: "dataset", // Default
+        price: price || 0,
+        accessDuration: duration || 100,
+        isActive: true,
+        creator: "ST13T9VVWP9XHRHFMTSYPNDWN986AEK4WQ2DYQ0Q2", // Current User
+        metadataUri: metadataUri || ""
+    };
+
+    mockContentStore.push(newItem);
+    console.log("Mock Content Added:", newItem);
+
+    res.json({ success: true, item: newItem });
+});
+
+/**
  * GET /api/content/:id/metadata
  * Get content metadata (public)
  */
@@ -55,6 +91,18 @@ router.get('/:id/metadata', async (req: Request, res: Response) => {
 
         if (isNaN(contentId)) {
             return res.status(400).json({ error: 'Invalid content ID' });
+        }
+
+        // Check mock store first
+        const mockItem = mockContentStore.find(i => i.id === contentId);
+        if (mockItem) {
+            return res.json({
+                success: true,
+                metadata: {
+                    ...mockItem,
+                    metadataUri: mockItem.metadataUri
+                }
+            });
         }
 
         const content = getContentById(contentId);
@@ -96,10 +144,27 @@ router.get('/:id/stats', async (req: Request, res: Response) => {
             return res.status(400).json({ error: 'Invalid content ID' });
         }
 
+        const mockItem = mockContentStore.find(i => i.id === contentId);
+        if (mockItem) {
+            return res.json({
+                success: true,
+                stats: {
+                    contentId,
+                    totalRevenue: 5000000, // Fake revenue (5 USDC)
+                    accessCount: 1 // Fake access count
+                }
+            });
+        }
+
         const stats = await getContentStats(contentId);
 
         if (!stats) {
-            return res.status(404).json({ error: 'Stats not found' });
+            // return res.status(404).json({ error: 'Stats not found' });
+            // Fallback for demo
+            return res.json({
+                success: true,
+                stats: { contentId, totalRevenue: 0, accessCount: 0 }
+            });
         }
 
         res.json({
@@ -126,6 +191,23 @@ router.get('/:id/stats', async (req: Request, res: Response) => {
 router.get('/:id/access', requirePayment, async (req: Request, res: Response) => {
     try {
         const contentId = parseInt(req.params.id as string);
+
+        // Check mock store
+        const mockItem = mockContentStore.find(i => i.id === contentId);
+        if (mockItem) {
+            return res.json({
+                success: true,
+                message: 'Access granted (Mock)',
+                content: {
+                    id: mockItem.id,
+                    title: mockItem.title,
+                    description: mockItem.description,
+                    type: mockItem.type,
+                    data: "This is the premium content you purchased! (Mock Data)"
+                }
+            });
+        }
+
         const content = getContentById(contentId);
 
         if (!content) {
