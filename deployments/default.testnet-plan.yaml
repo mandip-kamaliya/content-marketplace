@@ -9,7 +9,7 @@ plan:
     - id: 0
       transactions:
         - contract-publish:
-            contract-name: content-marketplace-v2
+            contract-name: content-marketplace-v3
             expected-sender: ST13T9VVWP9XHRHFMTSYPNDWN986AEK4WQ2DYQ0Q2
             cost: 52350
             path: "contracts\\content-marketplace.clar"
