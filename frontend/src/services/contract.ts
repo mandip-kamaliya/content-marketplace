@@ -9,7 +9,7 @@ import {
 import { STACKS_TESTNET } from '@stacks/network';
 
 const contractAddress = import.meta.env.VITE_CONTRACT_ADDRESS?.split('.')[0] || 'ST13T9VVWP9XHRHFMTSYPNDWN986AEK4WQ2DYQ0Q2';
-const contractName = import.meta.env.VITE_CONTRACT_ADDRESS?.split('.')[1] || 'content-marketplace-v2';
+const contractName = import.meta.env.VITE_CONTRACT_ADDRESS?.split('.')[1] || 'content-marketplace-v7';
 
 // Helper to safely convert to BigInt for uintCV
 const toBigInt = (value: number | string): bigint => {
@@ -20,6 +20,10 @@ const toBigInt = (value: number | string): bigint => {
     return BigInt(Math.floor(num));
 };
 
+// MOCK MODE: Enabled because contract deployment failed and user needs demo NOW.
+// This allows the UI to function (listing, buying) without a real marketplace contract,
+// while still allowing the user to show their Real USDCx balance.
+
 export const contractService = {
     // List new content
     async listContent(
@@ -28,23 +32,25 @@ export const contractService = {
         metadataUri: string,
         onFinish: (data: any) => void
     ) {
-        // Pre-serialize ClarityValues to hex strings to avoid version mismatch
-        const functionArgs = [
-            serializeCV(uintCV(toBigInt(price))),
-            serializeCV(uintCV(toBigInt(duration))),
-            serializeCV(stringAsciiCV(metadataUri)),
-        ];
+        console.log("Mock Listing Content:", { price, duration, metadataUri });
 
-        await openContractCall({
-            network: STACKS_TESTNET as any,
-            anchorMode: AnchorMode.Any,
-            contractAddress,
-            contractName,
-            functionName: 'list-content',
-            functionArgs,
-            postConditionMode: PostConditionMode.Allow,
-            onFinish,
-        });
+        // Notify backend to add to mock store (for Demo persistence)
+        fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3001'}/api/content/mock`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                title: "Recently Listed Content",
+                description: "This content was just listed during the demo.",
+                price,
+                duration,
+                metadataUri
+            })
+        }).catch(err => console.error("Failed to register mock content:", err));
+
+        // Simulate chain delay
+        setTimeout(() => {
+            onFinish({ txId: "0x_mock_tx_id_" + Date.now() });
+        }, 1500);
     },
 
     // Purchase access to content
@@ -53,22 +59,11 @@ export const contractService = {
         paymentAmount: number,
         onFinish: (data: any) => void
     ) {
-        // Pre-serialize ClarityValues to hex strings to avoid version mismatch
-        const functionArgs = [
-            serializeCV(uintCV(toBigInt(contentId))),
-            serializeCV(uintCV(toBigInt(paymentAmount))),
-        ];
-
-        await openContractCall({
-            network: STACKS_TESTNET as any,
-            anchorMode: AnchorMode.Any,
-            contractAddress,
-            contractName,
-            functionName: 'purchase-access',
-            functionArgs,
-            postConditionMode: PostConditionMode.Allow,
-            onFinish,
-        });
+        console.log("Mock Purchasing Access:", { contentId, paymentAmount });
+        // Simulate chain delay
+        setTimeout(() => {
+            onFinish({ txId: "0x_mock_tx_id_" + Date.now() });
+        }, 1500);
     },
 
     // Deactivate content
@@ -76,21 +71,10 @@ export const contractService = {
         contentId: number,
         onFinish: (data: any) => void
     ) {
-        // Pre-serialize ClarityValues to hex strings to avoid version mismatch
-        const functionArgs = [
-            serializeCV(uintCV(toBigInt(contentId))),
-        ];
-
-        await openContractCall({
-            network: STACKS_TESTNET as any,
-            anchorMode: AnchorMode.Any,
-            contractAddress,
-            contractName,
-            functionName: 'deactivate-content',
-            functionArgs,
-            postConditionMode: PostConditionMode.Allow,
-            onFinish,
-        });
+        console.log("Mock Deactivating:", { contentId });
+        setTimeout(() => {
+            onFinish({ txId: "0x_mock_tx_id_" + Date.now() });
+        }, 1500);
     },
 };
 

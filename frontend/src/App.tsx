@@ -16,10 +16,15 @@ function App() {
             <div className="app">
                 <Header currentView={currentView} onViewChange={setCurrentView} />
 
-                <main className="container" style={{ paddingTop: '2rem', paddingBottom: '4rem' }}>
-                    {currentView === 'marketplace' && <Marketplace />}
-                    {currentView === 'creator' && <CreatorDashboard />}
-                    {currentView === 'bridge' && <Bridge />}
+                <main style={{ flex: 1 }}>
+                    {currentView === 'bridge' ? (
+                        <Bridge />
+                    ) : (
+                        <div className="container" style={{ paddingTop: '2rem', paddingBottom: '4rem' }}>
+                            {currentView === 'marketplace' && <Marketplace />}
+                            {currentView === 'creator' && <CreatorDashboard />}
+                        </div>
+                    )}
                 </main>
 
                 <footer style={{

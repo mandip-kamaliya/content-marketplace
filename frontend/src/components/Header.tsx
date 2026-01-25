@@ -52,8 +52,15 @@ export default function Header({ currentView, onViewChange }: HeaderProps) {
                         className={currentView === 'bridge' ? 'btn btn-primary btn-sm' : 'btn btn-secondary btn-sm'}
                         onClick={() => onViewChange('bridge')}
                         style={{
-                            background: currentView === 'bridge' ? 'var(--gradient-primary)' : undefined,
-                            borderColor: 'var(--accent-primary)'
+                            background: currentView === 'bridge'
+                                ? 'linear-gradient(90deg, #4F46E5 0%, #7C3AED 100%)'
+                                : 'rgba(255, 255, 255, 0.05)',
+                            borderColor: currentView === 'bridge' ? 'transparent' : 'rgba(255, 255, 255, 0.1)',
+                            borderWidth: '1px',
+                            borderStyle: 'solid',
+                            color: 'white',
+                            fontWeight: 'bold',
+                            boxShadow: currentView === 'bridge' ? '0 0 15px rgba(124, 58, 237, 0.3)' : 'none'
                         }}
                     >
                         🌉 Get USDCx
