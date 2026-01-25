@@ -1,6 +1,6 @@
 
 <div align="center">
-  <img src="frontend/public/logo.png" alt="USDCx Marketplace Logo" width="120" />
+<div align="center">
   <h1>USDCx Content Marketplace</h1>
   
   <h3><strong>The Financial Layer for the AI & Data Economy</strong></h3>
@@ -11,7 +11,6 @@
   </p>
 
   <p>
-    <a href="#-demo">View Demo</a> •
     <a href="#-features">Key Features</a> •
     <a href="#-quick-start">Quick Start</a> •
     <a href="#-architecture">Architecture</a>
@@ -65,7 +64,7 @@ graph TD
     Frontend -->|2. Purchase Access| Contract
     Contract -->|3. Record Access| Contract
     User -->|4. Request Content| Backend
-    Backend -->|5. Verify Access (Read-Only)| Contract
+    Backend -->|"5. Verify Access (Read-Only)"| Contract
     Backend -->|6. Deliver Content or 402 Error| User
 ```
 
